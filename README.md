@@ -24,3 +24,5 @@ $("#yourElementID").simpleRTE();
 ```javascript
 $("div.yourDivIDclass").simpleRTE();
 ```
+
+![alt text](https://f.cloud.github.com/assets/144469/1803520/cbbdfd80-6c1f-11e3-9ff1-6847eb4b3cbe.png "Logo Title Text 1")
