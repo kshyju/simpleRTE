@@ -1,120 +1,17 @@
 <html>
 <head>
+<title>Simple RTE Demo</title>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	</head>
-  <body>
-  	<textarea class="txtContent" style="min-height:300;min-width:400;width:500px"></textarea>
-       <div id="divContainer" style="width:500px;">          
-         
-       </div>
-  </body>
-  <script type="text/javascript">
-     
-     (function ($, window, document, undefined) {
-    if (!$.techiesweb) {
-        $.techiesweb = {};
-    };
-    $.fn.simpleRTE = function (options) {
-    	var settings={
-    		theme:"default",
-    		minheight:100,
-    		minwidth:400
-    	};
-		$.extend(true,settings,options);
-		return this.each(function () {
-			var _self=$(this);			
-			var toolbar="<div id='srteToolbar'><div class='srtebold'>b</div><div class='srteitalic'>i</div></div>";
-            var textarea="<textarea class='txtContent' style='min-height:"+settings.minheight+";min-width:"+settings.minwidth+";width:"+_self.css("width")+"'></textarea>";
-            var previewDiv="<div class='previewContent' contenteditable='true' style='min-height:"+settings.minheight+"px;min-width:"+settings.minwidth+"px;width:"+_self.css("width")+"px'></div>"
-           // alert(toolbar+textarea);
-            _self.html("<div class='srteContainer'>"+toolbar+previewDiv+textarea+"</div>"); 
-		
-		//Events
-		$(document).on("keyup",".txtContent",function(){
-			var self=$(this);
-            self.closest(".srteContainer").find(".previewContent").html(self.val());
-		});
-        var selectedText="";  
-        $(document).on("mouseover",".srtebold",function(){
-        		 selectedText = getSelectedText(); 
-        		// console.log(selectedText);
-        });
-        $(document).on("click",".srtebold",function(){
-        		selectedText="<b>"+selectedText+"</b>";
-        		var s=GetSelection();
-        		 console.log(s);
-        });
+<script src="jquery.simpleRTE.js"></script>
+</head>
+<body>  	
+  <div id="divContainer" style="width:400px;" />
+</body>          
+<script type="text/javascript">
 
-		});  // return this.each
-		
-        
-	};
-	function GetSelection()
-	{
-		 return (window.getSelection) ? window.getSelection() : document.selection
-	}
-function saveSelection() {
-    if (window.getSelection) {
-        sel = window.getSelection();
-        if (sel.getRangeAt && sel.rangeCount) {
-            return sel.getRangeAt(0);
-        }
-    } else if (document.selection && document.selection.createRange) {
-        return document.selection.createRange();
-    }
-    return null;
-}
+    $(function(){        
+        $("#divContainer").simpleRTE();
+    });
 
-function restoreSelection(range) {
-    if (range) {
-        if (window.getSelection) {
-            sel = window.getSelection();
-            sel.removeAllRanges();
-            sel.addRange(range);
-        } else if (document.selection && range.select) {
-            range.select();
-        }
-    }
-}
-	//Grab selected text
-function getSelectedText(){ 
-    if(window.getSelection){ 
-        return window.getSelection().toString(); 
-    } 
-    else if(document.getSelection){ 
-        return document.getSelection(); 
-    } 
-    else if(document.selection){ 
-
-        return document.selection.createRange().text; 
-    } 
-} 
-
-	})(jQuery, window, document);	 
-
-$(function(){
-        
-     	$("#divContainer").simpleRTE();
-
-
-     });
-
-
-  </script>
-  <style>
-  #srteToolbar
-  {
-  	width:100%; min-height: 20px; background-color:gray;
-  }
-
-    .srtebold,.srteitalic
-    {
-    	 float:left; width: 20px; background-color: orange; margin-right: 2px; padding-left: 2px;
-    }
-    .previewContent
-    {
-    	min-height: 10px;
-    	float: :left; background-color:azure;
-    }
-  </style>
+</script>
 </html>
